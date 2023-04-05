@@ -18,15 +18,15 @@ void cargaBin(int N,int cromo[],int num){
 int main(){
 	
 	int p = 50000, n = 9,iteraciones; //50000 dolares de presupuesto y 9 canales de publicidad
-	double canales[n][2] = {{30000,1.2},
-	                     {14000,2.8},
-					 {18000,1.4},
-					 {9000,2.5},
-					 {15000,1.3},
-					 {10000,2},
-					 {21000,1.2},
-					 {15000,2.5},
-					 {20000,1.1}};
+	double canales[n][3] = {{30000,1.2,2000},
+	                     {14000,2.8,3000},
+					 {18000,1.4,1200},
+					 {9000,2.5,400},
+					 {15000,1.3,700},
+					 {10000,2,800},
+					 {21000,1.2,1300},
+					 {15000,2.5,1000},
+					 {20000,1.1,200}};
 	char nombres[n][50] ={{'T','V'},
 	{'Y','O','U','T','U','B','E'},
 	{'R','A','D','I','O'},
@@ -71,6 +71,39 @@ int main(){
 	for(int i=0;i<n;i++){
 		if(cromo[i]==1){
 			cout<<"Canal "<<i+1<<" - "<<nombres[i]<<", ingreso = "<<ingresoVentas[i]
+			<<" dolares con una inversion publicitaria de "<<canales[i][0]<<" dolares."<<endl;
+		}
+	}
+	cout<<endl;
+	//Parte D
+	int recordacionT, recordacionMax =0;
+	
+	for(int i=1;i<iteraciones;i++){
+		ingresoTParcial = 0;
+		inversionT = 0;
+		recordacionT = 0;
+		cargaBin(n,cromo,i);
+		for(int j=0;j<n;j++){
+			if(cromo[j]==1){
+				recordacionT += canales[j][2];
+				ingresoTParcial +=ingresoVentas[j];
+				inversionT += canales[j][0];
+			}
+		}
+		if(inversionT<=p && recordacionT>recordacionMax){
+			recordacionMax = recordacionT;
+			ingresoMaximo = ingresoTParcial;
+			inversionMax = inversionT;
+			iMax = i;
+		}
+	}
+	cout<<"El nivel maximo de recordacion de marca es de "<<recordacionMax<<" con una inversion total en publicidad de "
+	<<inversionMax<<" dolares y un ingreso de "<<ingresoMaximo<<endl<<endl;
+	cout<<"Los canales de publicidad que se deben de elegir para obtener el maximo nivel de recordacion de marca son:"<<endl<<endl;
+	cargaBin(n,cromo,iMax);
+	for(int i=0;i<n;i++){
+		if(cromo[i]==1){
+			cout<<"Canal "<<i+1<<" - "<<nombres[i]<<", recordacion de marca = "<<canales[i][2]<<", ingreso = "<<ingresoVentas[i]
 			<<" dolares con una inversion publicitaria de "<<canales[i][0]<<" dolares."<<endl;
 		}
 	}
