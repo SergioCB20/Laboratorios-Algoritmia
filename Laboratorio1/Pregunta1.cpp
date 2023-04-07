@@ -1,6 +1,8 @@
 #include <iostream>
 #include <math.h>
 
+//Hecho por Sergio Chumbimuni Bustamante
+
 using namespace std;
 
 void cargaBin(int N,int cromo[],int num){
